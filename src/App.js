@@ -6,6 +6,7 @@ function App() {
 
   const [quote,setQuote] = useState('');
   const [author,setAuthor] = useState('');
+
   const url = 'https://type.fit/api/quotes';
 
   useEffect(() => {
@@ -15,17 +16,18 @@ function App() {
   async function fetchQuotes() {
     const response = await axios.get(url);
     const quote = response.data;
-    const id = Math.floor(Math.random()*1642)
-    console.log(quote[id])
+    const id = Math.floor(Math.random()*1642);
+    console.log(quote)
+    console.log(quote[id]);
 
     setQuote(quote[id].text);
-    setAuthor(quote[id].author);
+    quote[id].author ? setAuthor(quote[id].author) : setAuthor('Unknown');
   }
   return (
     <div className="app">
         <div className="card">
           <h3 className="heading">{quote}</h3>
-          <p className="author">-- {author}</p>
+          <p className="author">- {author} -</p>
           <button className="button" onClick={fetchQuotes}>
             <span>GIVE ME A QUOTE!</span>
           </button>
